@@ -15,15 +15,20 @@ def run_num_checker():
 
     attempts = 3
     while attempts > 0:
+        try:
+            number = int(input("Enter a number:\n  "))
 
-        number = int(input("Enter a number:\n  "))
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+            attempts -= 1
+            print(f"Attempts left: {attempts} ")
+            continue
 
         result = analyze_number(number)
         print(result)
 
         if result == "Positive":
             print("Good, keep going ")
-            return
 
         attempts -= 1
         print(f"Attempts left: {attempts} ")
