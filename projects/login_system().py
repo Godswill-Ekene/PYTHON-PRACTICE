@@ -25,7 +25,7 @@ def register(users , username, password):
         return "User registered successfully"
     
 
-def login_system2():
+def login_system():
     attempts = 3
 
     while attempts > 0:
@@ -64,4 +64,4 @@ def login_system2():
     print("Account locked 🔒")
 
 
-login_system2()
+login_system()
