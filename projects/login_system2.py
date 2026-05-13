@@ -28,6 +28,7 @@ def reduce_attempts(attempts):
 
     if attempts == 1:
         print("Suspicious activity detected 🚨")
+    return attempts
 
 
 def login_system():
@@ -35,7 +36,9 @@ def login_system():
 
     while attempts > 0:
         users = load_users()
-
+        #since we are using the same variable to reduce attempts, we need to load users inside the loop to make sure we have the most updated list of users after registration
+        #if we load users outside the loop, we will not have the new user in the users dictionary after registration, and the user will not be able to login with the new account until they restart the program
+        #since the input is not value sensitive no need for try / except block to handle value errors, we can just use strip() and lower() to handle extra spaces and case sensitivity
         action = input("Register(new user) / Login(existing user)?\n").strip().lower()
         username = input("Enter username:\n").strip().lower()
         password = input("Enter password:\n").strip()
