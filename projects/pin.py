@@ -29,13 +29,13 @@ def validate_pin(pin):
             continue
 
         if pin != 1234:
-            print("Access denied.")
+            print("Wrong PIN!.")
             attempts = reduce_attempts(attempts)
             continue
 
         else:
-            print("Access granted.")
-            break
+            print("Correct!.")
+            continue #i think i need to add another function here to continue the withdrawal process after the pin is correct.
     return "Account locked!"   
 
 def withdraw():
