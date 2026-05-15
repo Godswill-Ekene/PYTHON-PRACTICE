@@ -27,7 +27,7 @@ def reduce_attempts(attempts):
 
     if attempts == 1:
         print("Last attempt remaining. Please try again.")
-
+            #if i use return "Account locked!" here, it will end the program immediately after the last attempt, which is not what I want. I want the user to have one last chance to enter the correct pin before the account is locked.
     return attempts
 
 def validate_pin(pin):
