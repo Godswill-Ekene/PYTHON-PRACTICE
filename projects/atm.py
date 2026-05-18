@@ -47,6 +47,7 @@ def validate_pin(pin):
 
         else:
             print("Correct!.")
+            return 
     return "Account locked!" #i think i need to add another function here to continue the withdrawal process after the pin is correct.   
 
 def withdraw():
