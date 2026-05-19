@@ -55,12 +55,12 @@ def withdraw():
     global balance
     while balance > 0:
         try:
-            withdraw = int(input("Enter an amount to withdraw: "))
+            amount = int(input("Enter an amount to withdraw: "))
         except ValueError:
             print("Invalid input. Please enter a valid amount.")
             continue
 
-        if withdraw >= 5000:
+        if amount > balance:
             print("Insufficient funds!")
             continue
             
@@ -69,9 +69,9 @@ def withdraw():
             if validate == "Account locked!":
                 return "Account locked!"
             else:
-                balance -= withdraw
+                balance -= amount
                 print(f"Withdrawal successful! Your new balance is: {balance}")
-                return ATM()
+            return 
 
 def deposit():
     # Global balance variable
@@ -89,7 +89,7 @@ def deposit():
         else:
             balance += deposit
             print(f"Deposit successful! Your new balance is: {balance}")
-            return ATM()
+        return 
 
 def balance_enquiry():
     # Global balance variable
@@ -101,7 +101,7 @@ def balance_enquiry():
 
         else:
             print(f"Balance enquiry successful! Your balance is: {balance}")
-        return ATM()
+        return 
 
 def ATM():
         while True:
@@ -127,6 +127,15 @@ def ATM():
             else:
                 print("Invalid! Please try again.")
 
-ATM()
+def login():
+    validate = validate_pin(1234)
+    if validate == "Account locked!":
+        return "Account locked!"
+    
+    else:
+        return ATM()
+    
+
+login()
 
 
