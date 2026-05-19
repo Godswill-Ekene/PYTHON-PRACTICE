@@ -16,11 +16,13 @@ text = users.split(",")
 
 name = input("Enter name:\n ")
 
-if name in text:
-    print("user found")
+
+if name not in text:
+    print("user not found")
 
 else:
-    print("User not found")
+    for user in text:
+        print(user)
 
 # .upper()-make upper case, 
 # .lower()-make lowercase, 
