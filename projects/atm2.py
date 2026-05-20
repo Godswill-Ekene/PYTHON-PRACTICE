@@ -82,7 +82,7 @@ def withdraw():
                 return "Failed attempts!"
             else:
                 balance -= amount
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
                 print(f"Withdrawal successful! Your new balance is: {balance}")
                 transactions.append(f"{timestamp} - Withdraw: {amount} | Balance: {balance}")
                 return 
@@ -106,7 +106,7 @@ def deposit():
             return "Failed attempts!"
         else:
             balance += amount
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
             print(f"Deposit successful! Your new balance is: {balance}")
             transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {balance}")
             return 
