@@ -11,18 +11,14 @@ transactions = []
 
 def menu():
     while True:
-        try:
-            print("Welcome to the ATM!")
-            print("Choose an option (1, 2, 3, 4):")
-            print("1. Withdraw")
-            print("2. Deposit")
-            print("3. Balance Inquiry")
-            print("4. Exit")
-            print("5. Transaction History")
-            return input("Enter your choice: ")
-        except ValueError:
-            print("Invalid option! Please try again.")
-        continue
+        print("Welcome to the ATM!")
+        print("Choose an option (1, 2, 3, 4):")
+        print("1. Withdraw")
+        print("2. Deposit")
+        print("3. Balance Inquiry")
+        print("4. Exit")
+        print("5. Transaction History")
+        return (input("Enter your choice: "))
 
 def reduce_attempts(attempts):
     attempts -= 1
@@ -33,7 +29,7 @@ def reduce_attempts(attempts):
             #if i use return "Account locked!" here, it will end the program immediately after the last attempt, which is not what I want. I want the user to have one last chance to enter the correct pin before the account is locked.
     return attempts
 
-def validate_pin(pin):
+def validate_pin():
     attempts = 3
     while attempts > 0:
         try:
@@ -59,8 +55,9 @@ def transaction_history():
     else:
         for transaction in transactions:
             print(transaction)
-            return        
+    return        
 
+from datetime import datetime
 def withdraw():
     # Global balance variable
     global balance
@@ -74,15 +71,15 @@ def withdraw():
         if amount > balance:
             print("Insufficient funds!")
             continue
-            
         else:
-            validate = validate_pin(1234)
+            validate = validate_pin()
             if validate == "Account locked!":
                 return "Account locked!"
             else:
                 balance -= amount
+                timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
                 print(f"Withdrawal successful! Your new balance is: {balance}")
-                transactions.append(f"Withdraw: {amount} | Balance: {balance}")
+                transactions.append(f"{timestamp} - Withdraw: {amount} | Balance: {balance}")
                 return 
 
 def deposit():
@@ -95,20 +92,21 @@ def deposit():
             print("Invalid input. Please enter a valid amount.")
             continue
                     
-        validate = validate_pin(1234)
+        validate = validate_pin()
         if validate == "Account locked!":
             return "Account locked!"
         else:
             balance += amount
+            timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
             print(f"Deposit successful! Your new balance is: {balance}")
-            transactions.append(f"Deposit: {amount} | Balance: {balance}")
+            transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {balance}")
             return 
-    
+            
 def balance_enquiry():
     # Global balance variable
     global balance
     while True:
-        validate = validate_pin(1234)
+        validate = validate_pin()
         if validate == "Account locked!":
             return "Account locked!"
 
@@ -117,35 +115,35 @@ def balance_enquiry():
             return 
 
 def ATM():
-        while True:
-            choice = menu()
-            print(choice)
-            if choice == "1":
-                result = withdraw()
+    while True:
+        choice = menu()
+        if choice == "1":
+            result = withdraw()
+            if result:
                 print(result)
 
-            elif choice == "2":
-                result = deposit()
+        elif choice == "2":
+            result = deposit()
+            if result:
                 print(result)
 
-            elif choice == "3":
-                result = balance_enquiry()
+        elif choice == "3":
+            result = balance_enquiry()
+            if result:
                 print(result)
 
-            elif choice == "4":
-                result = "Thank you for using the ATM. Goodbye!"
-                print(result)
-                break
+        elif choice == "4":
+            print("Thank you for using the ATM. Goodbye!")
+            break
 
-            elif choice == "5":
-                result = transaction_history()
-                print(result)
+        elif choice == "5":
+            transaction_history()
 
-            else:
-                print("Invalid! Please try again.")
+        else:
+            print("Invalid! Please try again.")
 
 def login():
-    validate = validate_pin(1234)
+    validate = validate_pin()
     if validate == "Account locked!":
         return "Account locked!"
     
