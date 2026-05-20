@@ -10,9 +10,8 @@ balance = 5000
 transactions = []
 
 def menu():
-    while True:
         print("Welcome to the ATM!")
-        print("Choose an option (1, 2, 3, 4):")
+        print("Choose an option (1, 2, 3, 4, 5):")
         print("1. Withdraw")
         print("2. Deposit")
         print("3. Balance Inquiry")
@@ -58,6 +57,7 @@ def transaction_history():
     return        
 
 from datetime import datetime
+
 def withdraw():
     # Global balance variable
     global balance
@@ -71,13 +71,18 @@ def withdraw():
         if amount > balance:
             print("Insufficient funds!")
             continue
+
+        elif amount <= 0:
+            print("Enter a valid withdrawal amount!")
+            continue
+        
         else:
             validate = validate_pin()
             if validate == "Account locked!":
-                return "Account locked!"
+                return "Failed attempts!"
             else:
                 balance -= amount
-                timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print(f"Withdrawal successful! Your new balance is: {balance}")
                 transactions.append(f"{timestamp} - Withdraw: {amount} | Balance: {balance}")
                 return 
@@ -92,12 +97,16 @@ def deposit():
             print("Invalid input. Please enter a valid amount.")
             continue
                     
+        if amount <= 0:
+            print("Enter a valid deposit amount!")
+            continue
+
         validate = validate_pin()
         if validate == "Account locked!":
-            return "Account locked!"
+            return "Failed attempts!"
         else:
             balance += amount
-            timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             print(f"Deposit successful! Your new balance is: {balance}")
             transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {balance}")
             return 
@@ -108,8 +117,7 @@ def balance_enquiry():
     while True:
         validate = validate_pin()
         if validate == "Account locked!":
-            return "Account locked!"
-
+            return "Failed attempts!"
         else:
             print(f"Balance enquiry successful! Your balance is: {balance}")
             return 
