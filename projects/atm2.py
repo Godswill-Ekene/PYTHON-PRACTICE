@@ -59,7 +59,7 @@ def transaction_history():
     else:
         for transaction in transactions:
             print(transaction)
-    return        
+            return        
 
 def withdraw():
     # Global balance variable
@@ -83,7 +83,7 @@ def withdraw():
                 balance -= amount
                 print(f"Withdrawal successful! Your new balance is: {balance}")
                 transactions.append(f"Withdraw: {amount} | Balance: {balance}")
-            return 
+                return 
 
 def deposit():
     # Global balance variable
@@ -102,7 +102,7 @@ def deposit():
             balance += amount
             print(f"Deposit successful! Your new balance is: {balance}")
             transactions.append(f"Deposit: {amount} | Balance: {balance}")
-        return 
+            return 
     
 def balance_enquiry():
     # Global balance variable
@@ -114,7 +114,7 @@ def balance_enquiry():
 
         else:
             print(f"Balance enquiry successful! Your balance is: {balance}")
-        return 
+            return 
 
 def ATM():
         while True:
