@@ -7,7 +7,7 @@ def option():
     print("3. Exit")
     return input("Choose an option (1, 2, 3): ")
 
-def calc_sum(num1, num2, operation):
+def calculate(num1, num2, operation):
     if operation == "+":
         return num1 + num2
     
@@ -18,7 +18,7 @@ def calc_sum(num1, num2, operation):
         return num1 * num2
     
     elif operation == "/":
-        if num1 == 0 and num2 == 0:
+        if num2 == 0:
             return "0 is not divisible"
         return num1 / num2
     
@@ -48,9 +48,9 @@ def calculator():
             continue
             
         else:
-            result = calc_sum(num1, num2, operation)
+            result = calculate(num1, num2, operation)
             timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-            calculations.append(f"{timestamp} - Result : {result}")
+            calculations.append(f"{timestamp} | {num1} {operation} {num2} = {result}")
             print(f"Result = {result}")
 
         calc_more = input("Continue? (Yes/No): ").strip().lower()
@@ -60,25 +60,24 @@ def calculator():
         elif calc_more == "yes":
             continue
         else:
-            return main()
+            break
 
 def main():
+    while True:
         user_option = option()
+
         if user_option == "1":
-            result = calculator()
-            if result:
-                print(result)
+            calculator()
 
         elif user_option == "2":
-            result = calculations_history()
-            if result:
-                print(result)
+            calculations_history()
 
         elif user_option == "3":
-            print("Exiting the program.")
+            print("Exiting program.")
+            break
 
         else:
-            print("Invalid option. Please choose 1, 2, or 3.")
+            print("Invalid option.")
 
 main()
 #history = .append() results each
