@@ -21,7 +21,7 @@ def calculate(num1, num2, operation):
     
     elif operation == "/":
         if num2 == 0:
-            return "0 is not divisible"
+            return "Can't divide by zero"
         return num1 / num2
     
     else:
@@ -91,8 +91,11 @@ def main():
             calculations_history()
 
         elif user_option == "3":
-            print(f"Memory = {memory}")
-            clear = input("Type MC to clear memory, Enter to return: ").strip().upper()
+            if memory == 0:
+                print("No value stored in memory.")
+            else:
+                print(f"Memory = {memory}")
+            clear = input("Type MC to clear memory / Enter to return: ").strip().upper()
             if clear == "MC":
                 memory = 0
                 print("Memory cleared.")
