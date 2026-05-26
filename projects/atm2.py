@@ -45,7 +45,7 @@ def validate_pin():
 
         else:
             print("Correct!.")
-            return #if don't return here it will keep asking for pin even after putting the correct one 
+            return True
     return "Account locked!" 
 
 def transaction_history():
@@ -123,6 +123,10 @@ def balance_enquiry():
             return 
 
 def ATM():
+    result = login()
+    if result == "Account locked!":
+        print("Account locked! Too many failed attempts.")
+        return
     while True:
         choice = menu()
         if choice == "1":
@@ -155,10 +159,6 @@ def login():
     if validate == "Account locked!":
         return "Account locked!"
     
-    else:
-        return ATM()
-    
+    return validate
 
-login()
-
-
+ATM()

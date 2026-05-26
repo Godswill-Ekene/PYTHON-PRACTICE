@@ -1,5 +1,9 @@
 
+balance = 5000
+
+from history import transactions
 from datetime import datetime
+from authe import validate_pin
 
 def withdraw():
     # Global balance variable

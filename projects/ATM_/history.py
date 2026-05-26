@@ -1,5 +1,4 @@
 
-balance = 5000
 transactions = []
 
 def transaction_history():
