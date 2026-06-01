@@ -1,9 +1,9 @@
 
 balance = 5000
 
-from history import transactions
+from history_module import transactions
 from datetime import datetime
-from authe import validate_pin
+from authe_module import validate_pin
 
 def withdraw():
     # Global balance variable
@@ -31,7 +31,7 @@ def withdraw():
                 balance -= amount
                 timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
                 print(f"Withdrawal successful! Your new balance is: {balance}")
-                transactions.append(f"{timestamp} - Withdraw: {amount} | Balance: {balance}")
+                transactions.append(f"{timestamp} - Withdrawal: {amount} | Balance: {balance}")
                 return 
 
 def deposit():

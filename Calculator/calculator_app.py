@@ -18,7 +18,7 @@ def calculations_history():
     return
 
 from datetime import datetime
-from op_calc import calculate
+from operation_module import calculate
 def calculator():
     global memory
     while True:

@@ -1,8 +1,8 @@
 
-from banking import withdraw, deposit, balance_enquiry
-from menu import menu
-from history import transaction_history
-from authe import login
+from banking_module import withdraw, deposit, balance_enquiry
+from menu_module import menu
+from history_module import transaction_history
+from authe_module import login
 
 def ATM():
     result = login()
