@@ -1,26 +1,29 @@
-# Python-Practice Projects
+# Python Practice Projects
 
 This repository contains my Python learning journey and practice projects.
 
 ## Projects
 
 - ATM System
-- Calculator App
+- Calculator Application
 - Login System
-- Banking System
 
-## Concepts Practiced
+## Skills Learned
 
+- Python Fundamentals
 - Functions
 - Loops
-- Error Handling
-- File Handling
-- Dictionaries
 - Lists
+- Dictionaries
+- File Handling
+- Error Handling
 - Modules
-- Transaction History
-- Runtime Memory
+- Git & GitHub
 
-## Goal
+## Current Focus
 
-To build strong programming and cybersecurity foundations through practical projects.
+Learning software development fundamentals and building a strong foundation for cybersecurity.
+
+## Author
+
+Godswill Ekene
