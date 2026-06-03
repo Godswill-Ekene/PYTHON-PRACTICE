@@ -65,9 +65,8 @@ while True:
         "course": course
     })
     
-    print(students[0])
-    print(students[1])
-    print(students[2])
+    for student in students:
+        print(f"{student['name'].capitalize()} - {student['course'].title()}")
 
     choice = input('Enter book name: \n').strip().lower()
     if choice in books:
@@ -83,7 +82,7 @@ while True:
         print(f"Name: {search.capitalize()}")
         print(f"Age: {users[search]['age']}")
         print(f"Course: {users[search]['course']}")
-        break
+    
     else:
         print('Student not found!')
 
