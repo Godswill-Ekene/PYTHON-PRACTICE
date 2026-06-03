@@ -59,6 +59,16 @@ while True:
 
     print('User added successfully!')
 
+    students.append({
+        "name": name,
+        "age": age,
+        "course": course
+    })
+    
+    print(students[0])
+    print(students[1])
+    print(students[2])
+
     choice = input('Enter book name: \n').strip().lower()
     if choice in books:
         print(f"Author: {books[choice]['author']}")
@@ -86,4 +96,5 @@ while True:
             break
     else:
         print('Student not found!')
+
     
