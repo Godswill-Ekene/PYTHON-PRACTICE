@@ -6,7 +6,7 @@ def add_student():
             name = input('Enter your name here:\n ').strip().lower()
             age = int(input('Enter your age here:\n '))
         except ValueError:
-            print('Please enter a valid age!')
+            print('Please enter a valid INPUT!')
             continue
 
         course = input('Enter your course here:\n ').strip().lower()
