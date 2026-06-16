@@ -27,7 +27,7 @@ def reduce_attempts(attempts):
     print(f"Attempts left: {attempts}")
 
     if attempts == 1:
-        print("Suspicious activity detected 🚨")
+        print("Suspicious activity detected ")
     return attempts
 
 
@@ -50,15 +50,15 @@ def login_system():
         elif action == "login":
 
             if username not in users:
-                print("User not found ❌")
+                print("User not found ")
                 attempts = reduce_attempts(attempts)
 
             elif users[username] != password:
-                print("Wrong password ❌")
+                print("Wrong password ")
                 attempts = reduce_attempts(attempts)
 
             else:
-                print("Access granted ✅")
+                print("Access granted ")
                 return
 
         else:
@@ -66,7 +66,7 @@ def login_system():
             
         attempts = reduce_attempts(attempts)
 
-    print("Account locked 🔒")
+    print("Account locked ")
 
 
 login_system()

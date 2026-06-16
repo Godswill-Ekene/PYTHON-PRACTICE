@@ -7,11 +7,11 @@ while attempts > 0:
         pin = int(input("Enter PIN: "))
 
         if pin == 1234:
-            print("Access granted ✅")
+            print("Access granted ")
             
 
         else:
-            print("Wrong PIN ❌")
+            print("Wrong PIN ")
 
     
 

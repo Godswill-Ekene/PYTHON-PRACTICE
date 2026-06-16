@@ -17,14 +17,14 @@ def register(username, password):
     
 def login(username, password):
     if username not in users:
-        return False, "User not found ❌"
+        return False, "User not found "
     elif users[username] != password:
-        return False, "Wrong password ❌"
+        return False, "Wrong password "
     else:
-        return True, "Access granted ✅"
+        return True, "Access granted "
     
 
-def login_system2():
+def login_system():
     attempts = 3
 
     while attempts > 0:
@@ -47,9 +47,9 @@ def login_system2():
         print(f"Attempts left: {attempts}")
 
         if attempts == 1:
-            print("Suspicious activity detected 🚨")
+            print("Suspicious activity detected ")
 
-    print("Account locked 🔒")
+    print("Account locked ")
 
 
-login_system2()
+login_system()
