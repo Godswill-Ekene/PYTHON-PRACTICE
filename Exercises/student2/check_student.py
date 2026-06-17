@@ -1,3 +1,8 @@
+#This program:
+#1. Register's users
+#2. View users
+#3. Search users
+#4. Exit
 
 def add_user(name, age, course):
     with open("register.txt", "a") as file:
@@ -17,7 +22,7 @@ def load_users():
                 }
 
     except FileNotFoundError:
-        pass # File doesn't exist yet, return empty dict
+        print('No registered users yet.')
 
     return users
 
@@ -29,10 +34,22 @@ def register_user(users, name, age, course,):
         add_user(name, age, course)
         return "User registered successfully"
 
+def search_users():
+    users = load_users()
+    name = input("Enter the name of the user to search for: \n").strip().lower()
+
+    if name in users:
+        print(f"\nName: {name.capitalize()}")
+        print(f"Age: {users[name]['age']}")
+        print(f"Course: {users[name]['course']}")
+    else:
+        print("User not found.")
+
 def options():
     print("1. Register a new user")
     print("2. View all users")
-    print("3. Exit")
+    print("3. Search for a user")
+    print("4. Exit")
 
 #def action1(users, name, age, course,):
     #try:
@@ -46,9 +63,11 @@ def options():
     #print(message)
             
 def action1(users):
-
-    name = input("Enter your name:\n").strip().lower()
-    age = input("Enter your age:\n").strip()
+    try:
+        name = input("Enter your name:\n").strip().lower()
+        age = input("Enter your age:\n").strip()
+    except ValueError:
+        print("Invalid input. Enter age..")
     course = input("Enter your course:\n").strip().lower()
 
     message = register_user(
@@ -88,6 +107,8 @@ def main():
         elif choice == "2":
             action2()
         elif choice == "3":
+            search_users()
+        elif choice == "4":
             print("Exiting the program...")
             break
         else:
