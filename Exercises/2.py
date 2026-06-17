@@ -1,10 +1,13 @@
+
 class Car:
-    pass
 
-Toyota = Car()
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year
 
-Toyota.brand = "Toyota"
-Toyota.year = 2020
+    def introduce(self):
+        print(f"This is a {self.brand} car from the year {self.year}")
 
-print(Toyota.brand)
-print(Toyota.year)
+toyota = Car("Toyota", 2020)
+
+toyota.introduce()
