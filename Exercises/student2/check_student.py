@@ -35,6 +35,7 @@ def register_user(users, name, age, course,):
         return "User registered successfully"
 
 def search_users():
+    #when you search for a user, the program should display the user's name, age, and course if found. If not found in the nested dictionary.
     users = load_users()
     name = input("Enter the name of the user to search for: \n").strip().lower()
 
