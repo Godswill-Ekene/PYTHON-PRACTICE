@@ -1,20 +1,21 @@
 #OOP approach to ATM system
 #This program demonstrates object-oriented programming principles in a simple ATM simulation
-#
-transactions = []
+
 from datetime import datetime
 class Bankaccount:
     
-    def __init__(self, owner, balance):
+    def __init__(self, owner, balance, pin):
         self.owner = owner
         self.balance = balance
+        self.pin = pin
+        self.transactions = []
 
     def transaction_history(self):
         
-        if len(transactions) == 0:
+        if len(self.transactions) == 0:
             print("No transactions yet.")
         else:
-            for transaction in transactions:
+            for transaction in self.transactions:
                 print(transaction)
 
     def deposit(self):
@@ -26,21 +27,22 @@ class Bankaccount:
         self.balance += amount
         timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
         print(f"Deposited: {amount}. New balance: {self.balance}")
-        transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {self.balance}")
+        self.transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {self.balance}")
         
     def withdraw(self):
         try:
             amount = float(input("Enter amount to withdraw: "))
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
-            return
+            return        
         if amount > self.balance:
             print("Insufficient funds.")
+            return        
         else:
             self.balance -= amount
             timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
             print(f"Withdrawal: {amount}. New balance: {self.balance}")
-            transactions.append(f"{timestamp} - Withdrew: {amount} | Balance: {self.balance}")
+            self.transactions.append(f"{timestamp} - Withdrew: {amount} | Balance: {self.balance}")
     
     def transfer(self):
         while True:
@@ -72,23 +74,27 @@ class Bankaccount:
             acc_number = input("Enter recipient account number: ")
         except ValueError:
             print("Invalid input.")
+            return
         
         acc_name = input("Enter account name: ")
 
         if amount > self.balance:
             print("Insufficient funds, please deposit to transfer")
+            return
 
         elif amount <= 0.0:
             print("Enter a valid amount")
+            return
 
-        if len(acc_number) <= 10:
+        if len(acc_number) != 10:
             print("Invalid account number, try again.")
+            return
 
         else:
             self.balance -= amount
             print(f"Successfully transfered {amount} to {acc_name} | {acc_number}")
             timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-            transactions.append(f"{timestamp} - Transfer: {amount} | Balance: {self.balance}")
+            self.transactions.append(f"{timestamp} - Transfer: {amount} | Balance: {self.balance}")
 
     def check_balance(self):
         print(f"Current balance: {self.balance}")
@@ -129,5 +135,33 @@ class Bankaccount:
                 print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
-    account = Bankaccount("Destiny", 0.0) #the object and values
-    account.run() #this calls the method while accessing the object values
+    account1 = Bankaccount("ekene", 3000.0, "1234") #the object and values
+    account2 = Bankaccount("john", 2000.0, "2143")
+
+    accounts = {                    #using dictionary keys to access accounts
+        "ekene" : account1,
+        "john" : account2
+    }
+
+    attempts = 3
+    while attempts > 0:
+        
+        name = input("Enter name: ")
+        pin = input("Enter PIN: ")
+        if name in accounts:
+            account = accounts[name]
+            if pin == account.pin:
+                print("Login successful!")
+                account.run() #this calls the method while accessing the object values
+                break
+            else: 
+                print("Wrong PIN")
+
+        else:
+            print("User not found.")
+        
+        attempts -= 1
+        print(f"You have {attempts} attempts left")
+        if attempts == 1:
+            print("Suspicious activity detected")
+    print("Try again later.")
