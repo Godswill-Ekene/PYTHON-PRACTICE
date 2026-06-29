@@ -2,7 +2,10 @@
 #This program demonstrates object-oriented programming principles in a simple ATM simulation
 
 from datetime import datetime
+from datetime import datetime
 class Bankaccount:
+    
+    def __init__(self, owner, balance, pin):
     
     def __init__(self, owner, balance, pin):
         self.owner = owner
@@ -30,12 +33,16 @@ class Bankaccount:
         print(f"Deposited: {amount}. New balance: {self.balance}")
         self.transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {self.balance}")
         
+        timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
+        print(f"Deposited: {amount}. New balance: {self.balance}")
+        self.transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {self.balance}")
+        
     def withdraw(self):
         try:
             amount = float(input("Enter amount to withdraw: "))
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
-            return
+            return        
         if amount > self.balance:
             print("Insufficient funds.")
             return
@@ -112,6 +119,11 @@ class Bankaccount:
         print("5. Transaction history")
         print("6. Display Owner")
         print("7. Exit")
+        print("3. Transfer")
+        print("4. Check Balance")
+        print("5. Transaction history")
+        print("6. Display Owner")
+        print("7. Exit")
 
     def run(self):
         while True:
@@ -124,11 +136,17 @@ class Bankaccount:
             elif choice == '3':
                 self.transfer()
             elif choice == '4':
+                self.transfer()
+            elif choice == '4':
                 self.check_balance()
             elif choice == '5':
                 self.transaction_history()
             elif choice == '6':
+            elif choice == '5':
+                self.transaction_history()
+            elif choice == '6':
                 self.display_owner()
+            elif choice == '7':
             elif choice == '7':
                 print("Thank you for using the Bank Account Management System. Goodbye!")
                 break
