@@ -4,16 +4,17 @@
 from datetime import datetime
 class Bankaccount:
     
-    def __init__(self, owner, pin, balance):
+    def __init__(self, owner, balance, pin):
         self.owner = owner
-        self.pin = pin
         self.balance = balance
+        self.pin = pin
         self.transactions = []
 
     def transaction_history(self):
         
         if len(self.transactions) == 0:
             print("No transactions yet.")
+            return
         else:
             for transaction in self.transactions:
                 print(transaction)
@@ -26,7 +27,11 @@ class Bankaccount:
             return
         self.balance += amount
         timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-        print(f"Deposited: {amount} | New balance: {self.balance}")
+        print(f"Deposited: {amount}. New balance: {self.balance}")
+        self.transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {self.balance}")
+        
+        timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
+        print(f"Deposited: {amount}. New balance: {self.balance}")
         self.transactions.append(f"{timestamp} - Deposit: {amount} | Balance: {self.balance}")
         
     def withdraw(self):
@@ -34,13 +39,14 @@ class Bankaccount:
             amount = float(input("Enter amount to withdraw: "))
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
-            return
+            return        
         if amount > self.balance:
             print("Insufficient funds.")
+            return
         else:
             self.balance -= amount
             timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-            print(f"Withdrawal: {amount} | New balance: {self.balance}")
+            print(f"Withdrawal: {amount}. New balance: {self.balance}")
             self.transactions.append(f"{timestamp} - Withdrew: {amount} | Balance: {self.balance}")
     
     def transfer(self):
@@ -85,7 +91,7 @@ class Bankaccount:
             print("Enter a valid amount")
             return
 
-        elif len(acc_number) != 10:
+        if len(acc_number) != 10:
             print("Invalid account number, try again.")
             return
 
@@ -122,6 +128,8 @@ class Bankaccount:
             elif choice == '3':
                 self.transfer()
             elif choice == '4':
+                self.transfer()
+            elif choice == '4':
                 self.check_balance()
             elif choice == '5':
                 self.transaction_history()
@@ -133,56 +141,63 @@ class Bankaccount:
             else:
                 print("Invalid choice. Please try again.")
 
-if __name__ == "__main__":
-    balance = 0
+if __name__ == "__main__": 
+
     def save_user(owner, pin, balance):
-        with open ("bank.txt", "a") as file:
+        with open("users_atm.txt", "a") as file:
             file.write(f"{owner},{pin},{balance}\n")
 
     def register_user(accounts, owner, pin, balance):
         if owner in accounts:
-            print("User already exists, Login.")
+            return "user already exists"
+        
         save_user(owner, pin, balance)
-        print("User registered successfully.")
+        return "Registration successful!"
 
     def load_users():
         accounts = {}
+
         try:
-            with open ("bank.txt", "r") as file:
+            with open("users_atm.txt", "r") as file:
                 for line in file:
                     owner, pin, balance = line.strip().split(",")
 
-                    accounts[owner] = {
-                        "pin" : pin,
-                        "balance" : balance
-                    }
+                    accounts[owner] = Bankaccount( #the object and values
+                        owner,
+                        float(balance),
+                        pin
+                    )
+
         except FileNotFoundError:
             print('No registered users yet.')
 
-        return
-
-    #account1 = Bankaccount("Destiny", "1234", 1000.0) #the object and values
-    #account2 = Bankaccount("John", "2143", 2000.0)
-    #account3 = Bankaccount("Believe", "3142", 2500.0)
-
-    def check_user():
+        return accounts
+    
+    def main():
         attempts = 3
+        logged_in = False
+
         while attempts > 0:
             accounts = load_users()
-            choice = input("Register / Login: ").strip().lower()
-            owner = input("Enter name: ").strip().lower()
-            pin = input("Enter PIN: ").strip()
-
-            if choice == "register":
-                method = register_user(accounts, owner, pin, balance)
-                print(method)
+            try:
+                option = input("Register / Login: ").strip().lower()
+                owner = input("Enter name: ").strip().lower()
+                pin = input("Enter PIN: ").strip()
+                balance = input("Enter balance: ").strip()
+            except ValueError:
+                print("Invalid input")
                 return
             
-            elif choice == "login":
+            if option == "register":
+                message = register_user(accounts, owner, pin, balance)
+                print(message)
+
+            elif option == "login":
                 if owner in accounts:
                     account = accounts[owner]
                     if pin == account.pin:
                         print("Login successful!")
+                        logged_in = True
                         account.run() #this calls the method while accessing the object values
                         exit()
                     else: 
@@ -190,15 +205,11 @@ if __name__ == "__main__":
 
                 else:
                     print("User not found")
-                                
-            else: 
-                print("Invalid input.")
-                return
-            
-            attempts -= 1
-            print(f"You have {attempts} attempts left")
 
-        print("Try again later")
-        return
-       
-    check_user()
+                attempts -= 1
+                print(f"You have {attempts} attempts left")
+
+        if not logged_in:
+            print("Try again later.")   
+
+    main()
