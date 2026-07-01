@@ -1,6 +1,6 @@
 #OOP approach to ATM system
 #This program demonstrates object-oriented programming principles in a simple ATM simulation
-from auth import register_user, login
+from auth import authenticate_user, register_user
 
 def menu():
     print("1. Register")
@@ -16,10 +16,10 @@ def main():
         choice = input("> ")
 
         if choice == "1":
-            register_user(accounts, owner, pin, balance)
+            register_user()
 
         elif choice == "2":
-            account = login()
+            account = authenticate_user()
 
             if account:
                 account.run()

@@ -121,8 +121,6 @@ class Bankaccount:
             elif choice == '3':
                 self.transfer()
             elif choice == '4':
-                self.transfer()
-            elif choice == '4':
                 self.check_balance()
             elif choice == '5':
                 self.transaction_history()
