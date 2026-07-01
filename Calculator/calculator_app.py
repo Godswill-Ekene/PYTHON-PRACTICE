@@ -1,4 +1,7 @@
 
+from datetime import datetime
+from operation_module import calculate
+
 calculations = []
 memory = 0
 
@@ -17,8 +20,6 @@ def calculations_history():
             print(calculation)
     return
 
-from datetime import datetime
-from operation_module import calculate
 def calculator():
     global memory
     while True:
