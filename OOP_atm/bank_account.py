@@ -1,11 +1,12 @@
 from datetime import datetime
-class Bankaccount:
+class BankAccount:
     
     def __init__(self, owner, pin, balance):
         self.owner = owner
         self.pin = pin
         self.balance = balance
         self.transactions = []
+        self.beneficiaries = []  # Initialize an empty list for beneficiaries
 
     def transaction_history(self):        
         if len(self.transactions) == 0:
@@ -14,6 +15,14 @@ class Bankaccount:
         else:
             for transaction in self.transactions:
                 print(transaction)
+
+    def beneficiary_list(self):
+        if len(self.beneficiaries) == 0:
+            print("No beneficiaries found.")
+            return
+        else:
+            for beneficiary in self.beneficiaries:
+                print(beneficiary)
 
     def deposit(self):
         try:
@@ -63,7 +72,7 @@ class Bankaccount:
                 self.process()
                 break
             elif option == '3':
-                self.process()#need to add beneficiary list
+                self.beneficiary_list()
                 break
             else:
                 print("Invalid input, please try again.")
@@ -93,6 +102,11 @@ class Bankaccount:
             print(f"Successfully transfered {amount} to {acc_name} | {acc_number}")
             timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
             self.transactions.append(f"{timestamp} - Transfer: {amount} | Balance: {self.balance}")
+            
+        enlist = input("Add beneficiary? Yes/No: ").strip().lower()
+        if enlist == "yes":
+            self.beneficiaries.append(f"{acc_name} | {acc_number}")
+            print(f"{acc_name} has been added to your beneficiary list.")
 
     def check_balance(self):
         print(f"Current balance: {self.balance}")
