@@ -16,17 +16,6 @@ class BankAccount:
             for transaction in self.transactions:
                 print(transaction)
 
-    def beneficiary_list(self):
-        if not self.beneficiaries:
-            print("No beneficiaries found.")
-            return
-
-        print("\nBeneficiaries")
-        print("-" * 30)
-
-        for i, beneficiary in enumerate(self.beneficiaries, start=1):
-            print(f"{i}. {beneficiary['name']} - {beneficiary['account']}")
-
     def deposit(self):
         try:
             amount = float(input("Enter amount to deposit: "))
@@ -46,6 +35,9 @@ class BankAccount:
             return        
         if amount > self.balance:
             print("Insufficient funds.")
+            return
+        elif amount <= 0.0:
+            print("Invalid amount. Please enter a positive value.")
             return
         else:
             self.balance -= amount
@@ -78,46 +70,65 @@ class BankAccount:
                 continue
 
     def process(self):
-        try:
-            amount = float(input("Enter amount: "))
-            acc_number = input("Enter recipient account number: ")
-        except ValueError:
-            print("Invalid input.")
-            return
-        
-        acc_name = input("Enter account name: ")
-
-        if amount > self.balance:
-            print("Insufficient funds, please deposit to transfer")
-            return
-        elif amount <= 0.0:
-            print("Enter a valid amount")
-            return
-        if len(acc_number) != 10:
-            print("Invalid account number, try again.")
-            return
-        else:
-            self.balance -= amount
-            print(f"Successfully transfered {amount} to {acc_name} | {acc_number}")
-            timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-            self.transactions.append(f"{timestamp} - Transfer: {amount} | Balance: {self.balance}")
+        while True:
+            try:
+                bank_name = input("Enter bank name: ")
+                amount = float(input("Enter amount: "))
+                acc_number = input("Enter recipient account number: ")
+            except ValueError:
+                print("Invalid input.")
+                return
             
-        exists = any(
-            b["account"] == acc_number
-            for b in self.beneficiaries
-        )
+            acc_name = input("Enter account name: ")
 
-        if not exists:
-            enlist = input("Save beneficiary? (yes/no): ").lower()
+            if amount > self.balance:
+                print("Insufficient funds, please deposit to transfer")
+                return
+            elif amount <= 0.0:
+                print("Enter a valid amount")
+                return
+            if len(acc_number) != 10:
+                print("Invalid account number, try again.")
+                return
+            else:
+                self.balance -= amount
+                print(f"Successfully transfered {amount} to {acc_name} | {bank_name} - {acc_number}")
+                timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
+                self.transactions.append(f"{timestamp} - Transfer: {amount} | Balance: {self.balance} | Recipient: {acc_name} ({acc_number}) | Bank: {bank_name}")
+                
+            exists = any(
+                b["account"] == acc_number
+                for b in self.beneficiaries
+            )
 
-        if enlist == "yes":
-            self.beneficiaries.append({
-                "name": acc_name,
-                "account": acc_number
-            })
-            print("Beneficiary saved.")
-        else:
-            print("Beneficiary already exists.")
+            if exists:
+                print("Beneficiary already exists.")
+            else:
+                enlist = input("Save beneficiary? (yes/no): ").lower()
+
+                if enlist == "yes":
+                    self.beneficiaries.append({
+                        "name": acc_name,
+                        "account": acc_number
+                    })
+                    print("Beneficiary saved.")
+                    break
+                elif enlist == "no":
+                    print("Beneficiary not saved.")
+                    break
+                else:
+                    break
+
+    def beneficiary_list(self):
+        if not self.beneficiaries:
+            print("No beneficiaries found.")
+            return
+
+        print("\nBeneficiaries")
+        print("-" * 30)
+
+        for i, beneficiary in enumerate(self.beneficiaries, start=1):
+            print(f"{i}. {beneficiary['name']} - {beneficiary['account']}")
 
     def transfer_to_beneficiary(self):
 
