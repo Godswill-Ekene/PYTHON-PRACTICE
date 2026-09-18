@@ -13,8 +13,8 @@ class BankAccount:
             print("No transactions yet.")
             return
         else:
-            for transaction in self.transactions:
-                print(transaction)
+            for i, transaction in enumerate(self.transactions):
+                print(f"{i}. {transaction}")
 
     def deposit(self):
         try:
