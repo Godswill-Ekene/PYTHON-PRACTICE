@@ -13,11 +13,11 @@ class BankAccount:
             print("No transactions yet.")
             return
         else:
-            for i, transaction in enumerate(self.transactions):
+            for i, transaction in enumerate(self.transactions, start = 1):
                 print(f"{i}. {transaction}")
 
-    def deposit(self):
-        try:
+    def deposit(self):      
+        try:                    
             amount = float(input("Enter amount to deposit: "))
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
