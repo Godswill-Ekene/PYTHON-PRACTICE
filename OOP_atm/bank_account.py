@@ -8,6 +8,29 @@ class BankAccount:
         self.transactions = []
         self.beneficiaries = []  # Initialize an empty list for beneficiaries
 
+    def transfet_to(self, recipient, amount):
+        try:
+            amount = int(input('Enter amount: '))
+            recipient = input('Enter recipient account: ')
+            bank = input('Enter recipient bank: ')
+            name = input('Enter recipient bank name: ')
+        except ValueError:
+            print('Inalid input, please try again..')
+            return
+        if amount <= 0:
+            return "inavlid amount"
+        elif amount > self.balance:
+           return "insufficient funds!"
+        if len(recipient) != 10:
+            print("Invalid account number, try again.")
+            return        
+        else:
+            amount -= self.balance
+            timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
+            print(f"Transfered: {amount} | to {name} | Bank {bank} | Account {recipient} | New balance: {self.balance}")
+            self.transactions.append(f"{timestamp} - Transfered: {amount} | to {name} | Bank {bank} | Account {recipient} | Balance: {self.balance}")            
+
+
     def transaction_history(self):        
         if len(self.transactions) == 0:
             print("No transactions yet.")
