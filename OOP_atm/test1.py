@@ -10,6 +10,9 @@ account1.beneficiaries.append({
 })
 
 recipient = account1.beneficiaries[0]["account_object"]
+amount = 300
+account1.transfer_to(recipient, amount)
+
 print(recipient.owner)
 print(recipient.balance)
 print(account1.beneficiaries)
