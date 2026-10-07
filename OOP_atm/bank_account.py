@@ -19,10 +19,12 @@ class BankAccount:
 
         try:
             choice = int(input("\nSelect beneficiary: "))
-            beneficiary = self.beneficiaries[choice - 1]
         except (ValueError, IndexError):
             print("Invalid selection.")
             return
+
+        beneficiary = self.beneficiaries[choice - 1]
+        recipient = beneficiary["account_object"]
 
         try:
             amount = float(input("Enter amount: "))
@@ -30,26 +32,7 @@ class BankAccount:
             print("Invalid amount.")
             return
 
-        if amount <= 0:
-            print("Amount must be greater than zero.")
-            return
-
-        if amount > self.balance:
-            print("Insufficient funds.")
-            return
-
-        self.balance -= amount
-        timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-        self.transactions.append(
-            f"{timestamp} - Transfer: {amount} -> "
-            f"{beneficiary['name']} ({beneficiary['account']}) "
-            f"| Balance: {self.balance}"
-        )
-
-        print(
-            f"Transferred {amount} to "
-            f"{beneficiary['name']} successfully."
-        )
+        self.transfer_to(recipient, amount)
 
     def transfer_to(self, recipient, amount):
         if amount <= 0:
@@ -167,7 +150,8 @@ class BankAccount:
                 if enlist == "yes":
                     self.beneficiaries.append({
                         "name": acc_name,
-                        "account": acc_number
+                        "account": acc_number,
+                        "account_object": account2
                     })
                     print("Beneficiary saved.")
                     break
