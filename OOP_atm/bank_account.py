@@ -19,11 +19,11 @@ class BankAccount:
 
         try:
             choice = int(input("\nSelect beneficiary: "))
+            beneficiary = self.beneficiaries[choice - 1]
         except (ValueError, IndexError):
             print("Invalid selection.")
             return
-
-        beneficiary = self.beneficiaries[choice - 1]
+        
         recipient = beneficiary["account_object"]
 
         try:
@@ -32,7 +32,8 @@ class BankAccount:
             print("Invalid amount.")
             return
 
-        self.transfer_to(recipient, amount)
+        check = self.transfer_to(recipient, amount)
+        print(check)
 
     def transfer_to(self, recipient, amount):
         if amount <= 0:
@@ -43,11 +44,8 @@ class BankAccount:
             self.balance -= amount
             recipient.balance += amount
             timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-            print(f"Transferred {amount} from {self.owner} to {recipient.owner}")
-            print(f"{self.owner} balance: {self.balance}")
-            print(f"{recipient.owner} balance: {recipient.balance}")
             self.transactions.append(f"{timestamp} - Transfered: {amount} to  {recipient.owner} | Balance: {self.balance}")            
-
+            return f"Transferred {amount} from {self.owner} to {recipient.owner}"
 
     def transaction_history(self):        
         if len(self.transactions) == 0:
@@ -137,30 +135,7 @@ class BankAccount:
                 timestamp = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
                 self.transactions.append(f"{timestamp} - Transfer: {amount} | Balance: {self.balance} | Recipient: {acc_name} ({acc_number}) | Bank: {bank_name}")
                 
-            exists = any(
-                b["account"] == acc_number
-                for b in self.beneficiaries
-            )
-
-            if exists:
-                print("Beneficiary already exists.")
-            else:
-                enlist = input("Save beneficiary? (yes/no): ").lower()
-
-                if enlist == "yes":
-                    self.beneficiaries.append({
-                        "name": acc_name,
-                        "account": acc_number,
-                        "account_object": account2
-                    })
-                    print("Beneficiary saved.")
-                    break
-                elif enlist == "no":
-                    print("Beneficiary not saved.")
-                    break
-                else:
-                    break
-
+            
     def beneficiary_list(self):
         if not self.beneficiaries:
             print("No beneficiaries found.")
