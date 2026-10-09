@@ -5,11 +5,12 @@ def register_user():
         owner = input("Enter name: ").strip().lower()
         pin = input("Enter PIN: ").strip()
         balance = input("Enter balance: ").strip()
+        account_number = input("Enter account number: ").strip()
         
         if owner in accounts:
             return "user already exists"
-        
-        save_user(owner, pin, balance)
+
+        save_user(owner, pin, balance, account_number)
         return "Registration successful!"
 
 def authenticate_user():

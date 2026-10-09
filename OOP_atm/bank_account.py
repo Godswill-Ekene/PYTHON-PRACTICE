@@ -1,10 +1,11 @@
 from datetime import datetime
 class BankAccount:
     
-    def __init__(self, owner, pin, balance):
+    def __init__(self, owner, pin, balance, account_number):
         self.owner = owner
         self.pin = pin
         self.balance = balance
+        self.account_number = account_number
         self.transactions = []
         self.beneficiaries = []  # Initialize an empty list for beneficiaries
 
