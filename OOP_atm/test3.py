@@ -9,21 +9,19 @@ def find_account(accounts, account_number):
         if account.account_number == account_number:
             return account
     return None
-
 account_number = input("Enter account number: ")
 recipient = find_account(accounts, account_number)
 if not recipient:
     print("Account not found.")
-
 elif recipient == account1:
     print("You cannot transfer to your own account.")
-
 else:
     print(recipient.owner)
-
     amount = float(input("Enter amount to transfer: "))
     result = account1.transfer_to(recipient, amount)#this will call the transfer_to method of account1 and pass the recipient (account2) and the amount to transfer.``
     print(result)
+    print(f'Balance: {account1.balance}')
+    print(f'Recipient Balance: {recipient.balance}')
 #self represents the current instance of the class (account1), 
 #recipient represents the account object of the selected beneficiary (account2). 
 # amount represents the amount to be transferred from account1 to account2.
