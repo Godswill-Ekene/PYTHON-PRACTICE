@@ -1,23 +1,29 @@
 from bank_account import BankAccount
 
-account1 = BankAccount("John", "1234", 2000.0)
-account2 = BankAccount("Ebube", "5678", 1500.0)
+account1 = BankAccount("John", "1234", 2000.0, "1029384756")
+account2 = BankAccount("Ebube", "5678", 1500.0, "1029384757")
 
-account1.beneficiaries.append({
-    "name": account2.owner,
-    "account": "1029384756",
-    "account_object": account2
-}) #here we are adding the account2 object to the beneficiaries list of account1.
+accounts = (account1, account2)
+def find_account(accounts, account_number):
+    for account in accounts:
+        if account.account_number == account_number:
+            return account
+    return None
 
-for i, beneficiary in enumerate(account1.beneficiaries, start=1):
-    print(f"{i}. {beneficiary['name']} - {beneficiary['account']}")
+account_number = input("Enter account number: ")
+recipient = find_account(accounts, account_number)
+if not recipient:
+    print("Account not found.")
 
-choice = int(input("Select a beneficiary: "))
-recipient = account1.beneficiaries[choice - 1]["account_object"]#this will get the account_object of the selected beneficiary from the beneficiaries list of account1.
+elif recipient == account1:
+    print("You cannot transfer to your own account.")
 
-amount = float(input("Enter amount to transfer: "))
-account1.transfer_to(recipient, amount)#this will call the transfer_to method of account1 and pass the recipient (account2) and the amount to transfer.``
+else:
+    print(recipient.owner)
 
+    amount = float(input("Enter amount to transfer: "))
+    result = account1.transfer_to(recipient, amount)#this will call the transfer_to method of account1 and pass the recipient (account2) and the amount to transfer.``
+    print(result)
 #self represents the current instance of the class (account1), 
 #recipient represents the account object of the selected beneficiary (account2). 
 # amount represents the amount to be transferred from account1 to account2.
