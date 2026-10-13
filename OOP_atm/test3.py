@@ -17,7 +17,10 @@ elif recipient == account1:
     print("You cannot transfer to your own account.")
 else:
     print(recipient.owner)
-    amount = float(input("Enter amount to transfer: "))
+    try:
+        amount = float(input("Enter amount to transfer: "))
+    except ValueError:
+        print("Invalid amount. Please enter a valid number.")
     result = account1.transfer_to(recipient, amount)#this will call the transfer_to method of account1 and pass the recipient (account2) and the amount to transfer.``
     print(result)
     print(f'Balance: {account1.balance}')
