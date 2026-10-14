@@ -17,8 +17,8 @@ def load_users():
                 owner, pin, balance, account_number = line.strip().split(",")
 
                 accounts[owner] = BankAccount(  
-                     owner,
-                     pin,    
+                    owner,
+                    pin,                        
                     float(balance),
                     account_number
                 )   #this is where we create a new instance of the Bankaccount class for each user and store it in the accounts dictionary
@@ -28,3 +28,10 @@ def load_users():
         print('No registered users yet.')
 
     return accounts
+
+def find_account(accounts, account_number):
+    for account in accounts.values():
+        if account.account_number == account_number:
+            return account
+    return None
+

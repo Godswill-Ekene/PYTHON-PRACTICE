@@ -10,6 +10,10 @@ def register_user():
         if owner in accounts:
             return "user already exists"
 
+        for account in accounts.values():
+            if account.account_number == account_number:
+                return "Account number already exists"
+
         save_user(owner, pin, balance, account_number)
         return "Registration successful!"
 
