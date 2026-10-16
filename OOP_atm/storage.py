@@ -13,16 +13,24 @@ def load_users():
 
     try:
         with open("users_atm.txt", "r") as file:
-            for line in file:
-                owner, pin, balance, account_number = line.strip().split(",")
+            for line_number, line in enumerate(file, start=1):
+                parts = line.strip().split(",")
 
-                accounts[owner] = BankAccount(  
-                    owner,
-                    pin,                        
-                    float(balance),
-                    account_number
-                )   #this is where we create a new instance of the Bankaccount class for each user and store it in the accounts dictionary
-                
+                if len(parts) != 4:
+                    print(f"Skipping invalid record on line {line_number}.")
+                    continue
+
+                owner, pin, balance, account_number = parts
+
+                try:
+                    accounts[owner] = BankAccount(  
+                        owner,
+                        pin,                        
+                        float(balance),
+                        account_number
+                    )
+                except ValueError:
+                    print(f"Invalid balance on line {line_number}.")
 
     except FileNotFoundError:
         print('No registered users yet.')
